@@ -7,6 +7,9 @@ def iddfs(graph):
     start = graph.origin
     
     for limit in range(sys.maxsize):
+        #________________Debugging lines_________________
+        print(f"\n--- Starting Pass with Depth Limit: {limit} ---")
+        #________________Debugging lines_________________
         start_node = SearchNode(start, None, None, 0)
         total_nodes += 1
         
@@ -16,16 +19,25 @@ def iddfs(graph):
         
         while stack:
             current, depth, current_path = stack.pop()
-            
+            #________________Debugging lines_________________
+            print(f"  Evaluating: Node {current.state.id} at Depth {depth}")
+            #________________Debugging lines_________________
             if graph.is_goal(current.state):
                 goal_node = current
                 break
                 
             if depth == limit:
+                #________________Debugging lines_________________
+                print(f"    Limit reached for Node {current.state.id}. Cutting off.")
+                #________________Debugging lines_________________
                 cutoff_occurred = True
                 continue
                 
             neighbours = graph.get_neighbours(current.state.id)
+            #________________Debugging lines_________________
+            neighbour_ids = [n[0].id for n in neighbours]
+            print(f"    Expanding neighbors: {neighbour_ids}")
+            #________________Debugging lines_________________
             for neighbour, cost in reversed(neighbours):
                 if neighbour.id not in current_path:
                     child = SearchNode(neighbour, current, cost, current.path_cost + cost)

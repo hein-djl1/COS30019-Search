@@ -12,8 +12,9 @@ def idastar(graph):
     threshold = nearest_goal_dist(start, goals)
     
     while True:
-
+        #________________Debugging lines_________________
         print(f"\n--- Starting Pass with Threshold: {threshold:.2f} ---")
+        #________________Debugging lines_________________
         #origin node
         start_node = SearchNode(start, None, None, 0)
         total_nodes += 1
@@ -33,14 +34,14 @@ def idastar(graph):
             h = nearest_goal_dist(current.state, goals)
             f = g + h
 
-            # --- TRACE 2: Expansion & Cutoff ---
+            #________________Debugging lines_________________
             if f > threshold:
                 print(f"  CUTOFF: Node {current.state.id} | f={f:.2f} (Threshold: {threshold:.2f})")
                 min_exceeded_cost = min(min_exceeded_cost, f)
                 continue
             
             print(f"  Expanding: Node {current.state.id} | g={g}, h={h:.2f}, f={f:.2f}")
-            # ... (goal test and expansion)
+            #________________Debugging lines_________________
             
             if f > threshold:
                 min_exceeded_cost = min(min_exceeded_cost, f)
